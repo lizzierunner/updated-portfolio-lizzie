@@ -30,6 +30,54 @@
 
     html {
       scroll-behavior: smooth;
+      cursor: default;
+    }
+
+    /* Cursor trail effect */
+    .cursor-trail {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      animation: fadeTrail 1s ease-out forwards;
+    }
+
+    @keyframes fadeTrail {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+    }
+
+    /* Constellation lines */
+    .constellation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.15;
+    }
+
+    .constellation-line {
+      stroke: rgba(59, 130, 246, 0.3);
+      stroke-width: 0.5;
+      fill: none;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
 
     body {
@@ -68,7 +116,7 @@
     }
 
     /* Subtle starfield background */
-    .stars {
+    #stars {
       position: fixed;
       top: 0;
       left: 0;
@@ -77,9 +125,8 @@
       pointer-events: none;
       z-index: 0;
       opacity: 0.4;
-    }
-
-    .star {
+      transition: transform 0.1s ease-out;
+    }    .star {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -230,6 +277,13 @@
       backdrop-filter: blur(10px);
       position: relative;
       z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    .about:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+      transform: translateY(-2px);
     }
 
     .about p {
@@ -328,7 +382,7 @@
     .skill-category:hover {
       border-color: rgba(59, 130, 246, 0.4);
       transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
     }
 
     .skill-category h3 {
@@ -405,7 +459,7 @@
     .project-card:hover {
       transform: translateY(-8px);
       border-color: rgba(59, 130, 246, 0.5);
-      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
     }
 
     .project-image {
@@ -878,6 +932,11 @@
   <!-- Subtle starfield background -->
   <div class="stars" id="stars"></div>
 
+  <!-- Constellation lines -->
+  <svg class="constellation" id="constellation">
+    <!-- Lines will be added by JavaScript -->
+  </svg>
+
   <!-- Header Section -->
   <header>
     <h1>Lizzie Johnson</h1>
@@ -1111,14 +1170,20 @@
     // Create subtle starfield with animation and varying sizes
     function createStars() {
       const starsContainer = document.getElementById('stars');
+      const starPositions = []; // Store positions for constellation lines
       
       // Create different layers of stars
       for (let i = 0; i < 150; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        star.style.left = left + '%';
+        star.style.top = top + '%';
         star.style.animationDelay = Math.random() * 4 + 's';
+        
+        // Store position for constellation lines
+        starPositions.push({ x: left, y: top });
         
         // Vary star sizes for depth
         const size = Math.random();
@@ -1139,12 +1204,42 @@
         starsContainer.appendChild(star);
       }
       
+      // Create subtle constellation lines
+      createConstellationLines(starPositions);
+      
       // Add occasional shooting stars
       setInterval(() => {
         if (Math.random() > 0.7) {
           createShootingStar();
         }
       }, 3000);
+    }
+
+    // Create constellation lines connecting nearby stars
+    function createConstellationLines(stars) {
+      const svg = document.getElementById('constellation');
+      const maxDistance = 15; // Maximum distance to connect stars (in percentage)
+      const maxLines = 20; // Limit number of lines for subtlety
+      let lineCount = 0;
+      
+      for (let i = 0; i < stars.length && lineCount < maxLines; i++) {
+        for (let j = i + 1; j < stars.length && lineCount < maxLines; j++) {
+          const dx = stars[i].x - stars[j].x;
+          const dy = stars[i].y - stars[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < maxDistance && Math.random() > 0.7) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', stars[i].x + '%');
+            line.setAttribute('y1', stars[i].y + '%');
+            line.setAttribute('x2', stars[j].x + '%');
+            line.setAttribute('y2', stars[j].y + '%');
+            line.setAttribute('class', 'constellation-line');
+            svg.appendChild(line);
+            lineCount++;
+          }
+        }
+      }
     }
 
     // Create a shooting star
@@ -1191,6 +1286,30 @@
 
     // Initialize
     createStars();
+
+    // Cursor trail effect
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.7) { // Only create trail sometimes for subtlety
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = e.pageX + 'px';
+        trail.style.top = e.pageY + 'px';
+        document.body.appendChild(trail);
+        
+        setTimeout(() => {
+          trail.remove();
+        }, 1000);
+      }
+    });
+
+    // Add smooth parallax scrolling
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const stars = document.getElementById('stars');
+      if (stars) {
+        stars.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }
+    });
   </script>
 </body>
 </html>
