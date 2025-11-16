@@ -772,6 +772,48 @@
       animation: none;
     }
 
+    /* The Hitchhiker's Guide book easter egg */
+    .guide-book {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      width: 55px;
+      height: 70px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      border: 2px solid rgba(59, 130, 246, 0.6);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3),
+                  inset 2px 0 4px rgba(255, 255, 255, 0.2);
+      opacity: 0.85;
+    }
+
+    .guide-book::before {
+      content: "DON'T\APANIC";
+      white-space: pre;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffd700;
+      font-size: 0.65rem;
+      font-weight: 700;
+      font-family: 'Space Mono', monospace;
+      text-align: center;
+      line-height: 1.3;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .guide-book:hover {
+      opacity: 1;
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6),
+                  inset 2px 0 6px rgba(255, 255, 255, 0.3);
+      border-color: #60a5fa;
+    }
+
     /* Don't Panic Badge */
     .dont-panic {
       position: fixed;
@@ -899,6 +941,17 @@
         height: 45px;
       }
 
+      .guide-book {
+        left: 10px;
+        bottom: 10px;
+        width: 45px;
+        height: 60px;
+      }
+
+      .guide-book::before {
+        font-size: 0.55rem;
+      }
+
       .answer-42 {
         width: 45px;
         height: 45px;
@@ -969,6 +1022,15 @@
       .towel {
         width: 30px;
         height: 40px;
+      }
+
+      .guide-book {
+        width: 40px;
+        height: 55px;
+      }
+
+      .guide-book::before {
+        font-size: 0.5rem;
       }
 
       .answer-42 {
@@ -1238,6 +1300,7 @@
   </main>
 
   <!-- Subtle Easter Eggs -->
+  <div class="guide-book" onclick="guideClick()" title="The Hitchhiker's Guide to the Galaxy" role="button" aria-label="Hitchhiker's Guide book - click for quotes and facts"></div>
   <div class="towel" onclick="towelClick()" title="Always know where your towel is" role="button" aria-label="Towel easter egg - click for a surprise"></div>
   <div class="answer-42" onclick="showAnswer()" title="The Answer to Life, the Universe, and Everything" role="button" aria-label="The number 42 - click for a quote">42</div>
 
@@ -1455,6 +1518,33 @@
       for (let i = 0; i < 8; i++) {
         createSparkle(rect.left + rect.width/2, rect.top + rect.height/2);
       }
+    }
+
+    // Hitchhiker's Guide quotes and facts easter egg
+    function guideClick() {
+      const guideFacts = [
+        "📖 Fun Fact: The Guide has sold more copies than 'Celestial Home Care Omnibus'!",
+        "🌌 The Guide Entry on Earth: 'Mostly Harmless'",
+        "🐋 'So long and thanks for all the fish!' - The dolphins, being smarter than us",
+        "☕ The Nutrimatic Drink Dispenser produced something almost, but not quite, entirely unlike tea.",
+        "🚀 'Space is big. Really big. You just won't believe how vastly hugely mindbogglingly big it is.'",
+        "🎯 'The ships hung in the sky in much the same way that bricks don't.'",
+        "📱 The Guide is definitive. Reality is frequently inaccurate.",
+        "🌟 'In the beginning the Universe was created. This has made a lot of people very angry.'",
+        "🔢 Deep Thought took 7.5 million years to calculate that the answer was 42.",
+        "👍 'Ford, you're turning into a penguin. Stop it.'",
+        "🎲 'Time is an illusion. Lunchtime doubly so.'",
+        "🌍 The Earth was actually a giant supercomputer designed to find the Ultimate Question.",
+        "🍵 Arthur never got his cup of tea, but he never stopped trying.",
+        "💡 'There is a theory which states that if ever anyone discovers exactly what the Universe is for...'",
+        "🎒 A towel is about the most massively useful thing an interstellar hitchhiker can have."
+      ];
+      
+      const fact = guideFacts[Math.floor(Math.random() * guideFacts.length)];
+      alert(fact);
+      
+      // Add shooting star effect
+      createShootingStar();
     }
 
     // Initialize
