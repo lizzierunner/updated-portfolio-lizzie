@@ -330,6 +330,10 @@
       box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
     }
 
+    .profile-img[src*="weezer"] {
+      cursor: pointer;
+    }
+
     /* About Section */
     .about {
       max-width: 800px;
@@ -1024,7 +1028,7 @@
   <!-- Profile Images -->
   <div class="profile-container">
     <img src="lizzie.jpeg" alt="Portrait of Lizzie Johnson, web developer and designer" class="profile-img" />
-    <img src="weezer.jpeg" alt="Weezer, Lizzie's companion" class="profile-img" />
+    <img src="weezer.jpeg" alt="Weezer, Lizzie's companion" class="profile-img" onclick="weezerClick()" title="Click for a fun fact about Weezer!" />
   </div>
 
   <!-- About Section -->
@@ -1425,6 +1429,32 @@
         "Deep Thought computed this for 7.5 million years!",
       ];
       alert(answers[Math.floor(Math.random() * answers.length)]);
+    }
+
+    // Weezer fun facts easter egg!
+    function weezerClick() {
+      const weezerFacts = [
+        "🐾 Weezer is the best coding companion - never complains about bugs!",
+        "🎮 Fun fact: Weezer's favorite debug method is the 'treat-driven development' approach!",
+        "⭐ Weezer believes every good project deserves a celebratory walk!",
+        "🧠 Weezer's coding philosophy: 'If at first you don't succeed, try again... or take a nap.'",
+        "💻 Weezer is fluent in three languages: Bark, Whine, and JavaScript!",
+        "🌟 Did you know? Weezer once caught a shooting star... it was a tennis ball.",
+        "🎯 Weezer's favorite algorithm: The Fetch() API!",
+        "🚀 Weezer thinks pair programming means two treats instead of one.",
+        "📚 Weezer's favorite book? 'The Hitchhiker's Guide to the Dog Park'",
+        "✨ Legend says Weezer can debug code just by staring at it... or maybe that's just a treat request."
+      ];
+      
+      const fact = weezerFacts[Math.floor(Math.random() * weezerFacts.length)];
+      alert(fact);
+      
+      // Add sparkle effect when clicked
+      const img = event.target;
+      const rect = img.getBoundingClientRect();
+      for (let i = 0; i < 8; i++) {
+        createSparkle(rect.left + rect.width/2, rect.top + rect.height/2);
+      }
     }
 
     // Initialize
