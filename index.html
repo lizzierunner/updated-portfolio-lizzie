@@ -38,11 +38,12 @@
       position: fixed;
       width: 4px;
       height: 4px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent);
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.7), rgba(59, 130, 246, 0.3), transparent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
       animation: fadeTrail 1s ease-out forwards;
+      box-shadow: 0 0 4px rgba(255, 215, 0, 0.5);
     }
 
     @keyframes fadeTrail {
@@ -78,6 +79,45 @@
     @keyframes pulse {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 0.6; }
+    }
+
+    /* Magical dust particles */
+    .stardust-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .dust-particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.8), transparent);
+      border-radius: 50%;
+      animation: floatDust 15s infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes floatDust {
+      0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scale(0.5);
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100vh) translateX(50px) scale(1.5);
+      }
     }
 
     body {
@@ -130,27 +170,52 @@
       position: absolute;
       width: 1px;
       height: 1px;
-      background: white;
+      background: radial-gradient(circle, #ffd700, #fff);
       border-radius: 50%;
       opacity: 0.6;
       animation: twinkle 4s ease-in-out infinite;
+      box-shadow: 0 0 2px rgba(255, 215, 0, 0.6);
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.5); }
+      0%, 100% { 
+        opacity: 0.3; 
+        transform: scale(1);
+        box-shadow: 0 0 2px rgba(255, 215, 0, 0.4);
+      }
+      50% { 
+        opacity: 1; 
+        transform: scale(1.5);
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 12px rgba(255, 215, 0, 0.4);
+      }
     }
 
     /* Shooting star effect */
     .shooting-star {
       position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
+      width: 3px;
+      height: 3px;
+      background: radial-gradient(circle, #ffd700, #fff);
       border-radius: 50%;
-      box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 8px 2px rgba(255, 215, 0, 0.9),
+                  0 0 15px rgba(255, 215, 0, 0.6);
       animation: shoot 3s ease-out infinite;
       opacity: 0;
+      cursor: pointer;
+      pointer-events: all;
+      z-index: 100;
+    }
+
+    .shooting-star::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255, 215, 0, 0.8), transparent);
+      transform: translateX(-60px);
+      filter: blur(1px);
     }
 
     @keyframes shoot {
@@ -926,10 +991,22 @@
   <!-- Skip to main content for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Don't Panic Badge -->
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- DON'T PANIC Badge -->
   <div class="dont-panic" onclick="dontPanicClick()" title="The Hitchhiker's Guide to the Galaxy">DON'T PANIC</div>
 
   <!-- Subtle starfield background -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Magical stardust particles -->
+  <div class="stardust-container" id="stardust"></div>
+
+  <!-- Constellation lines -->
+  <svg class="constellation" id="constellation">
+    <!-- Lines will be added by JavaScript -->
+  </svg>  <!-- Subtle starfield background -->
   <div class="stars" id="stars"></div>
 
   <!-- Constellation lines -->
@@ -1249,12 +1326,78 @@
       shootingStar.className = 'shooting-star';
       shootingStar.style.left = Math.random() * 50 + '%';
       shootingStar.style.top = Math.random() * 50 + '%';
+      
+      // Make it clickable - catch the star!
+      shootingStar.addEventListener('click', function(e) {
+        e.stopPropagation();
+        catchStar(shootingStar);
+      });
+      
       starsContainer.appendChild(shootingStar);
       
       // Remove after animation
       setTimeout(() => {
         shootingStar.remove();
       }, 3000);
+    }
+
+    // Catch a shooting star (Stardust inspired!)
+    function catchStar(star) {
+      const stardustMessages = [
+        "✨ You caught a fallen star! Make a wish...",
+        "🌟 A star in human form... almost as magical as Yvaine!",
+        "⭐ The star dust shimmers in your hands...",
+        "💫 'You know when I said I knew little about love? That wasn't true...'",
+        "🌠 You've crossed the wall into magic!"
+      ];
+      
+      // Create sparkle effect
+      for (let i = 0; i < 12; i++) {
+        createSparkle(star.offsetLeft, star.offsetTop);
+      }
+      
+      star.remove();
+      alert(stardustMessages[Math.floor(Math.random() * stardustMessages.length)]);
+    }
+
+    // Create sparkle particles when catching a star
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'dust-particle';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      sparkle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+      document.getElementById('stardust').appendChild(sparkle);
+      
+      setTimeout(() => {
+        sparkle.remove();
+      }, 3000);
+    }
+
+    // Create floating stardust particles
+    function createStardust() {
+      const stardustContainer = document.getElementById('stardust');
+      
+      setInterval(() => {
+        if (Math.random() > 0.6) {
+          const particle = document.createElement('div');
+          particle.className = 'dust-particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.bottom = '0';
+          particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+          particle.style.animationDelay = Math.random() * 2 + 's';
+          
+          // Add shimmer
+          particle.style.boxShadow = `0 0 ${Math.random() * 4 + 2}px rgba(255, 215, 0, 0.6)`;
+          
+          stardustContainer.appendChild(particle);
+          
+          // Remove after animation
+          setTimeout(() => {
+            particle.remove();
+          }, 17000);
+        }
+      }, 500);
     }
 
     // Don't Panic interaction
@@ -1286,6 +1429,7 @@
 
     // Initialize
     createStars();
+    createStardust();
 
     // Cursor trail effect
     document.addEventListener('mousemove', (e) => {
