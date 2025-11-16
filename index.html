@@ -35,7 +35,31 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 40% 60%, rgba(16, 185, 129, 0.08) 0%, transparent 35%),
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(2px 2px at 90% 60%, white, transparent),
+        radial-gradient(1px 1px at 33% 80%, white, transparent),
+        radial-gradient(1px 1px at 15% 90%, white, transparent),
+        linear-gradient(to bottom, #0a0e27 0%, #0f1729 40%, #1a1f3a 100%);
+      background-size: 
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        200px 200px,
+        250px 250px,
+        150px 150px,
+        180px 180px,
+        220px 220px,
+        170px 170px,
+        200px 200px,
+        100% 100%;
+      background-attachment: fixed;
       color: #e2e8f0;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
@@ -62,6 +86,35 @@
       background: white;
       border-radius: 50%;
       opacity: 0.6;
+      animation: twinkle 4s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    /* Shooting star effect */
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8);
+      animation: shoot 3s ease-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes shoot {
+      0% {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(300px) translateY(300px);
+      }
     }
 
     /* Skip to main content - Accessibility */
@@ -98,6 +151,18 @@
       margin-bottom: 0.5rem;
       color: #f1f5f9;
       letter-spacing: -0.02em;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .subtitle {
@@ -105,6 +170,7 @@
       color: #94a3b8;
       font-weight: 400;
       margin-bottom: 2rem;
+      animation: fadeInUp 1s ease-out 0.2s backwards;
     }
 
     /* Easter egg - subtle nod to H2G2 */
@@ -116,12 +182,14 @@
       margin-top: 0.5rem;
       opacity: 0.7;
       cursor: help;
-      transition: opacity 0.3s ease;
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease-out 0.4s backwards;
     }
 
     .easter-egg:hover {
       opacity: 1;
       color: #3b82f6;
+      transform: scale(1.05);
     }
 
     .profile-container {
@@ -186,6 +254,24 @@
       border-left: 3px solid rgba(59, 130, 246, 0.5);
       background: rgba(15, 23, 42, 0.4);
       border-radius: 0 8px 8px 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .quote::before {
+      content: '"';
+      position: absolute;
+      left: -10px;
+      top: -10px;
+      font-size: 4rem;
+      color: rgba(59, 130, 246, 0.2);
+      font-family: Georgia, serif;
+    }
+
+    .quote:hover {
+      border-left-color: #3b82f6;
+      background: rgba(15, 23, 42, 0.6);
+      transform: translateX(4px);
     }
 
     .status-note {
@@ -193,6 +279,10 @@
       font-size: 0.95rem;
       color: #94a3b8;
       font-style: italic;
+      padding: 0.75rem 1rem;
+      background: rgba(34, 197, 94, 0.05);
+      border-left: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: 4px;
     }
 
     /* Skills Section */
@@ -262,12 +352,14 @@
       font-size: 0.875rem;
       border: 1px solid rgba(59, 130, 246, 0.2);
       transition: all 0.2s ease;
+      cursor: default;
     }
 
     .skill-tag:hover {
       background: rgba(59, 130, 246, 0.2);
       border-color: rgba(59, 130, 246, 0.4);
-      transform: scale(1.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
     }
 
     /* Projects Section */
@@ -479,11 +571,17 @@
       height: 50px;
       background: #ef4444;
       border-radius: 4px;
-      opacity: 0.6;
+      opacity: 0.7;
       cursor: pointer;
       transition: all 0.3s ease;
       z-index: 100;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      animation: floatTowel 3s ease-in-out infinite;
+    }
+
+    @keyframes floatTowel {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
 
     .towel::before {
@@ -505,8 +603,9 @@
 
     .towel:hover {
       opacity: 1;
-      transform: scale(1.15);
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+      transform: scale(1.15) translateY(-5px);
+      box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5);
+      animation: none;
     }
 
     /* The Answer - 42 badge */
@@ -531,12 +630,52 @@
       transition: all 0.3s ease;
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
+      animation: pulse42 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse42 {
+      0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+      }
+      50% { 
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      }
     }
 
     .answer-42:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
-      background: rgba(34, 197, 94, 0.3);
+      transform: scale(1.2) rotate(360deg);
+      box-shadow: 0 0 30px rgba(34, 197, 94, 0.6);
+      background: rgba(34, 197, 94, 0.35);
+      animation: none;
+    }
+
+    /* Don't Panic Badge */
+    .dont-panic {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 0.5rem 1rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid rgba(239, 68, 68, 0.4);
+      border-radius: 8px;
+      color: #fca5a5;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.875rem;
+      font-weight: 700;
+      z-index: 100;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+
+    .dont-panic:hover {
+      opacity: 1;
+      transform: scale(1.05);
+      border-color: #ef4444;
+      color: #ef4444;
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
     }
 
     footer {
@@ -559,6 +698,12 @@
       font-size: 0.8rem;
       margin-top: 0.5rem;
       opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    footer .whale-note:hover {
+      opacity: 1;
+      transform: scale(1.05);
     }
 
     /* Tablet and mobile responsive */
@@ -637,6 +782,13 @@
         font-size: 1.1rem;
         right: 10px;
       }
+
+      .dont-panic {
+        top: 10px;
+        right: 10px;
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -701,6 +853,11 @@
         height: 40px;
         font-size: 1rem;
       }
+
+      .dont-panic {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.7rem;
+      }
     }
 
     @media (min-width: 1200px) {
@@ -714,6 +871,9 @@
 
   <!-- Skip to main content for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Don't Panic Badge -->
+  <div class="dont-panic" onclick="dontPanicClick()" title="The Hitchhiker's Guide to the Galaxy">DON'T PANIC</div>
 
   <!-- Subtle starfield background -->
   <div class="stars" id="stars"></div>
@@ -948,16 +1108,70 @@
   </footer>
 
   <script>
-    // Create subtle starfield
+    // Create subtle starfield with animation and varying sizes
     function createStars() {
       const starsContainer = document.getElementById('stars');
-      for (let i = 0; i < 80; i++) {
+      
+      // Create different layers of stars
+      for (let i = 0; i < 150; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 4 + 's';
+        
+        // Vary star sizes for depth
+        const size = Math.random();
+        if (size > 0.8) {
+          star.style.width = '2px';
+          star.style.height = '2px';
+          star.style.opacity = '0.9';
+        } else if (size > 0.5) {
+          star.style.width = '1.5px';
+          star.style.height = '1.5px';
+          star.style.opacity = '0.7';
+        } else {
+          star.style.width = '1px';
+          star.style.height = '1px';
+          star.style.opacity = '0.5';
+        }
+        
         starsContainer.appendChild(star);
       }
+      
+      // Add occasional shooting stars
+      setInterval(() => {
+        if (Math.random() > 0.7) {
+          createShootingStar();
+        }
+      }, 3000);
+    }
+
+    // Create a shooting star
+    function createShootingStar() {
+      const starsContainer = document.getElementById('stars');
+      const shootingStar = document.createElement('div');
+      shootingStar.className = 'shooting-star';
+      shootingStar.style.left = Math.random() * 50 + '%';
+      shootingStar.style.top = Math.random() * 50 + '%';
+      starsContainer.appendChild(shootingStar);
+      
+      // Remove after animation
+      setTimeout(() => {
+        shootingStar.remove();
+      }, 3000);
+    }
+
+    // Don't Panic interaction
+    function dontPanicClick() {
+      const messages = [
+        "DON'T PANIC! Everything is under control... mostly.",
+        "Remember: Always know where your towel is!",
+        "Panic is just enthusiasm without the rhythm.",
+        "The Guide says: Keep calm and code on.",
+        "In case of emergency, consult the Guide (or Google).",
+      ];
+      alert(messages[Math.floor(Math.random() * messages.length)]);
     }
 
     // Towel easter egg interaction
