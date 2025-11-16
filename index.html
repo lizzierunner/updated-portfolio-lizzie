@@ -8,6 +8,11 @@
   <meta name="keywords" content="web developer, designer, portfolio, AI applications, front-end development, UX design"/>
   <meta name="author" content="Lizzie Johnson"/>
   
+  <!-- iOS Specific Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="format-detection" content="telephone=no"/>
+  
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Lizzie Johnson - Developer & Designer"/>
@@ -31,6 +36,11 @@
     html {
       scroll-behavior: smooth;
       cursor: default;
+      /* Prevent text size adjustment on iOS */
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      /* Smooth scrolling on iOS */
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Cursor trail effect */
@@ -153,6 +163,11 @@
       overflow-x: hidden;
       min-height: 100vh;
       line-height: 1.6;
+      /* Improve font rendering on Safari/iOS */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      /* Prevent tap highlight on mobile */
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* Subtle starfield background */
@@ -666,12 +681,24 @@
       transition: all 0.3s ease;
       text-decoration: none;
       display: inline-block;
+      /* Improve touch targets for mobile */
+      min-height: 44px;
+      /* Prevent text selection on double tap */
+      -webkit-user-select: none;
+      user-select: none;
+      /* Active state for mobile */
+      -webkit-touch-callout: none;
     }
 
     .button:hover {
       background: #2563eb;
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
     }
 
     .button.secondary {
@@ -700,6 +727,10 @@
       z-index: 100;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       animation: floatTowel 3s ease-in-out infinite;
+      /* Better touch target */
+      min-width: 44px;
+      min-height: 44px;
+      touch-action: manipulation;
     }
 
     @keyframes floatTowel {
@@ -724,7 +755,7 @@
       border-radius: 2px;
     }
 
-    .towel:hover {
+    .towel:hover, .towel:active {
       opacity: 1;
       transform: scale(1.15) translateY(-5px);
       box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5);
@@ -754,6 +785,10 @@
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       animation: pulse42 3s ease-in-out infinite;
+      /* Better touch target */
+      min-width: 44px;
+      min-height: 44px;
+      touch-action: manipulation;
     }
 
     @keyframes pulse42 {
@@ -765,7 +800,7 @@
       }
     }
 
-    .answer-42:hover {
+    .answer-42:hover, .answer-42:active {
       transform: scale(1.2) rotate(360deg);
       box-shadow: 0 0 30px rgba(34, 197, 94, 0.6);
       background: rgba(34, 197, 94, 0.35);
@@ -788,6 +823,10 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3),
                   inset 2px 0 4px rgba(255, 255, 255, 0.2);
       opacity: 0.85;
+      /* Better touch target */
+      min-width: 44px;
+      min-height: 44px;
+      touch-action: manipulation;
     }
 
     .guide-book::before {
@@ -806,7 +845,7 @@
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     }
 
-    .guide-book:hover {
+    .guide-book:hover, .guide-book:active {
       opacity: 1;
       transform: scale(1.1) translateY(-5px);
       box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6),
@@ -833,9 +872,14 @@
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       cursor: pointer;
+      /* Better touch target */
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      touch-action: manipulation;
     }
 
-    .dont-panic:hover {
+    .dont-panic:hover, .dont-panic:active {
       opacity: 1;
       transform: scale(1.05);
       border-color: #ef4444;
@@ -873,6 +917,11 @@
 
     /* Tablet and mobile responsive */
     @media (max-width: 768px) {
+      /* Fix background-attachment for iOS/mobile Safari */
+      body {
+        background-attachment: scroll;
+      }
+
       header {
         padding: 3rem 1.5rem 1.5rem;
       }
@@ -1551,27 +1600,33 @@
     createStars();
     createStardust();
 
-    // Cursor trail effect
-    document.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.7) { // Only create trail sometimes for subtlety
-        const trail = document.createElement('div');
-        trail.className = 'cursor-trail';
-        trail.style.left = e.pageX + 'px';
-        trail.style.top = e.pageY + 'px';
-        document.body.appendChild(trail);
-        
-        setTimeout(() => {
-          trail.remove();
-        }, 1000);
-      }
-    });
+    // Detect if device supports touch (mobile/tablet)
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    // Add smooth parallax scrolling
+    // Cursor trail effect (only on non-touch devices)
+    if (!isTouchDevice) {
+      document.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.7) { // Only create trail sometimes for subtlety
+          const trail = document.createElement('div');
+          trail.className = 'cursor-trail';
+          trail.style.left = e.pageX + 'px';
+          trail.style.top = e.pageY + 'px';
+          document.body.appendChild(trail);
+          
+          setTimeout(() => {
+            trail.remove();
+          }, 1000);
+        }
+      });
+    }
+
+    // Add smooth parallax scrolling (lighter effect on mobile)
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
       const stars = document.getElementById('stars');
       if (stars) {
-        stars.style.transform = `translateY(${scrolled * 0.3}px)`;
+        const parallaxAmount = isTouchDevice ? 0.1 : 0.3;
+        stars.style.transform = `translateY(${scrolled * parallaxAmount}px)`;
       }
     });
   </script>
