@@ -4,32 +4,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lizzie Johnson's Portfolio - Don't Panic!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <title>Lizzie Johnson - Developer & Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       margin: 0;
       padding: 0;
-      background: 
-        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.2), transparent),
-        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.1), transparent),
-        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.2), transparent),
-        radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.1), transparent),
-        linear-gradient(135deg, #0a0a2a 0%, #1a1a4a 25%, #0d1929 50%, #000612 100%);
-      background-size: 200px 100px;
-      color: #fff;
-      font-family: 'Orbitron', monospace;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
       min-height: 100vh;
-      position: relative;
+      line-height: 1.6;
     }
 
-    /* Animated background stars */
+    /* Subtle starfield background */
     .stars {
       position: fixed;
       top: 0;
@@ -37,762 +32,185 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
+      opacity: 0.4;
     }
 
     .star {
       position: absolute;
-      width: 2px;
-      height: 2px;
+      width: 1px;
+      height: 1px;
       background: white;
       border-radius: 50%;
-      animation: twinkle 3s infinite ease-in-out;
+      opacity: 0.6;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-
-    .guide-frame {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      width: 200px;
-      height: 100px;
-      background: #000;
-      border: 3px solid #00ff00;
-      border-radius: 10px;
-      padding: 10px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px;
-      color: #00ff00;
-      z-index: 1000;
-      animation: guidePulse 4s infinite;
-      cursor: pointer;
-    }
-
-    @keyframes guidePulse {
-      0%, 100% { box-shadow: 0 0 5px #00ff00; }
-      50% { box-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
-    }
-
-    .guide-text {
-      font-size: 8px;
-      line-height: 1.2;
-      overflow: hidden;
+    /* Header Section */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     h1 {
-      text-align: center;
-      font-size: 4rem;
-      font-weight: 900;
-      margin-top: 2rem;
-      text-shadow: 0 0 20px #4da6ff, 0 0 40px #0066cc;
-      animation: glow 3s ease-in-out infinite alternate;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #f1f5f9;
+      letter-spacing: -0.02em;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 20px #4da6ff, 0 0 40px #0066cc; }
-      to { text-shadow: 0 0 30px #66b3ff, 0 0 60px #3399ff, 0 0 80px #0066cc; }
+    .subtitle {
+      font-size: 1.25rem;
+      color: #94a3b8;
+      font-weight: 400;
+      margin-bottom: 2rem;
     }
 
-    .dont-panic {
-      font-size: 2.5rem;
-      color: #ffff00;
-      font-weight: bold;
-      text-align: center;
-      margin: 1rem 0;
-      padding: 15px;
-      background: rgba(255, 0, 0, 0.2);
-      border: 3px solid #ff0000;
-      border-radius: 15px;
-      max-width: 400px;
-      margin: 1rem auto;
-      animation: panicBlink 1.5s infinite;
-      text-shadow: 0 0 10px #ffff00;
-      position: relative;
+    /* Easter egg - subtle nod to H2G2 */
+    .easter-egg {
+      display: inline-block;
+      font-size: 0.875rem;
+      color: #64748b;
+      font-family: 'Space Mono', monospace;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+      cursor: help;
+      transition: opacity 0.3s ease;
     }
 
-    @keyframes panicBlink {
-      0%, 100% { 
-        transform: scale(1); 
-        border-color: #ff0000;
-        background: rgba(255, 0, 0, 0.2);
-      }
-      50% { 
-        transform: scale(1.05); 
-        border-color: #ffff00;
-        background: rgba(255, 255, 0, 0.1);
-      }
+    .easter-egg:hover {
+      opacity: 1;
+      color: #3b82f6;
     }
 
     .profile-container {
       display: flex;
       justify-content: center;
       gap: 2rem;
-      margin: 2rem 0;
+      margin: 2rem 0 3rem;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 10;
     }
 
     .profile-img {
-      width: 180px;
-      height: auto;
-      border-radius: 15px;
-      border: 3px solid #fff;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 3px solid rgba(59, 130, 246, 0.5);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
       transition: all 0.3s ease;
+      object-fit: cover;
     }
 
     .profile-img:hover {
-      transform: scale(1.05) rotateY(10deg);
-      box-shadow: 0 0 30px rgba(77, 166, 255, 0.6);
+      transform: scale(1.05);
+      border-color: #3b82f6;
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
     }
 
+    /* About Section */
     .about {
       max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: rgba(13, 25, 41, 0.8);
-      border-radius: 20px;
-      text-align: center;
-      border: 2px solid rgba(77, 166, 255, 0.3);
+      margin: 0 auto 4rem;
+      padding: 2.5rem;
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 16px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       position: relative;
-      overflow: hidden;
-    }
-
-    .about::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(77, 166, 255, 0.1), transparent);
-      animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+      z-index: 10;
     }
 
     .about p {
       font-size: 1.1rem;
-      line-height: 1.6;
-      margin: 1rem 0;
-      position: relative;
-      z-index: 1;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
     }
 
+    .about strong {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    /* Subtle quote - one Douglas Adams reference */
     .quote {
       font-style: italic;
-      color: #66b3ff;
-      font-size: 1rem;
-      margin: 1.5rem 0;
-      padding: 10px;
-      border-left: 3px solid #66b3ff;
-      background: rgba(102, 179, 255, 0.1);
-    }
-
-    .contact {
-      text-align: center;
-      margin: 3rem 0;
-    }
-
-    .button {
-      background: linear-gradient(45deg, #004d99, #0066cc);
-      color: white;
-      border: 2px solid #4da6ff;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin: 2rem 0 0;
       padding: 1rem 1.5rem;
-      font-size: 1rem;
-      font-family: 'Orbitron', monospace;
-      font-weight: bold;
-      margin: 0.5rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      position: relative;
-      overflow: hidden;
+      border-left: 3px solid rgba(59, 130, 246, 0.5);
+      background: rgba(15, 23, 42, 0.4);
+      border-radius: 0 8px 8px 0;
     }
 
-    .button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
+    .status-note {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      color: #94a3b8;
+      font-style: italic;
     }
 
-    .button:hover::before {
-      left: 100%;
-    }
-
-    .button:hover {
-      background: linear-gradient(45deg, #3399ff, #66b3ff);
-      box-shadow: 0 0 20px #3399ff, 0 0 40px rgba(51, 153, 255, 0.3);
-      transform: translateY(-2px);
-    }
-
-    /* CSS Towel - making it look like an actual towel! */
-    .towel {
-      position: absolute;
-      right: 5%;
-      top: 15%;
-      width: 60px;
-      height: 80px;
-      background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 50%, #e53935 100%);
-      border-radius: 8px;
-      animation: towelFloat 4s ease-in-out infinite;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .towel::before {
-      content: '';
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      right: 5px;
-      height: 8px;
-      background: repeating-linear-gradient(
-        90deg,
-        #ffab91 0px,
-        #ffab91 2px,
-        #ff8a65 2px,
-        #ff8a65 4px
-      );
-      border-radius: 4px;
-    }
-
-    .towel::after {
-      content: '';
-      position: absolute;
-      bottom: 5px;
-      left: 5px;
-      right: 5px;
-      height: 8px;
-      background: repeating-linear-gradient(
-        90deg,
-        #ffab91 0px,
-        #ffab91 2px,
-        #ff8a65 2px,
-        #ff8a65 4px
-      );
-      border-radius: 4px;
-    }
-
-    .towel-fringe {
-      position: absolute;
-      bottom: -8px;
-      left: 8px;
-      right: 8px;
-      height: 8px;
-      background: repeating-linear-gradient(
-        90deg,
-        #ff5252 0px,
-        #ff5252 1px,
-        transparent 1px,
-        transparent 3px
-      );
-    }
-
-    .towel-fringe::before {
-      content: '';
-      position: absolute;
-      top: -80px;
-      left: -8px;
-      right: -8px;
-      height: 8px;
-      background: repeating-linear-gradient(
-        90deg,
-        #ff5252 0px,
-        #ff5252 1px,
-        transparent 1px,
-        transparent 3px
-      );
-    }
-
-    @keyframes towelFloat {
-      0%, 100% { 
-        transform: translateY(0px) rotate(-2deg); 
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      }
-      50% { 
-        transform: translateY(-20px) rotate(2deg); 
-        box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-      }
-    }
-
-    .towel:hover {
-      transform: scale(1.1) rotate(5deg) !important;
-      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-    }
-
-    .dolphin {
-      position: fixed;
-      font-size: 2rem;
-      animation: swim 15s linear infinite;
-      z-index: 100;
-    }
-
-    @keyframes swim {
-      0% { 
-        left: -100px; 
-        top: 20%; 
-        transform: rotate(0deg);
-      }
-      25% { 
-        left: 25%; 
-        top: 60%; 
-        transform: rotate(-10deg);
-      }
-      50% { 
-        left: 50%; 
-        top: 30%; 
-        transform: rotate(5deg);
-      }
-      75% { 
-        left: 75%; 
-        top: 70%; 
-        transform: rotate(-5deg);
-      }
-      100% { 
-        left: calc(100% + 100px); 
-        top: 40%; 
-        transform: rotate(0deg);
-      }
-    }
-
-    .answer-42 {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle, #00ff00, #008800);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #000;
-      cursor: pointer;
-      animation: answer42Spin 10s linear infinite;
-      box-shadow: 0 0 20px #00ff00;
-    }
-
-    @keyframes answer42Spin {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(180deg) scale(1.1); }
-      100% { transform: rotate(360deg) scale(1); }
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 4rem;
-      padding: 2rem;
-      color: #ccc;
-      background: rgba(0, 0, 0, 0.3);
-      border-top: 1px solid rgba(77, 166, 255, 0.3);
-    }
-
-    .improbability-drive {
-      position: fixed;
-      top: 50%;
-      left: -200px;
-      width: 150px;
-      height: 50px;
-      background: linear-gradient(45deg, #ff00ff, #00ffff);
-      border-radius: 25px;
-      animation: improbability 20s linear infinite;
-      opacity: 0.7;
-      z-index: 50;
-    }
-
-    @keyframes improbability {
-      0% { left: -200px; }
-      10% { left: 10%; opacity: 1; }
-      90% { left: 90%; opacity: 1; }
-      100% { left: calc(100% + 200px); }
-    }
-
-    /* Tablet and below (768px) */
-    @media (max-width: 768px) {
-      h1 { 
-        font-size: 2.5rem;
-        margin-top: 1rem;
-      }
-      
-      .dont-panic { 
-        font-size: 1.8rem;
-        max-width: 90%;
-        padding: 12px;
-      }
-      
-      .profile-container { 
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 0 1rem;
-      }
-      
-      .profile-img {
-        width: 150px;
-      }
-      
-      .guide-frame { 
-        position: static;
-        margin: 1rem auto;
-        width: 90%;
-        max-width: 300px;
-      }
-      
-      .towel { 
-        right: 10px;
-        top: auto;
-        bottom: 100px;
-        width: 50px;
-        height: 65px;
-      }
-      
-      .about {
-        margin: 1.5rem 1rem;
-        padding: 1.5rem;
-      }
-      
-      .about p {
-        font-size: 1rem;
-      }
-      
-      .quote {
-        font-size: 0.9rem;
-        padding: 8px;
-        margin: 1rem 0;
-      }
-      
-      .button {
-        padding: 0.8rem 1.2rem;
-        font-size: 0.9rem;
-        margin: 0.3rem;
-        display: inline-block;
-      }
-      
-      .contact {
-        margin: 2rem 0;
-        padding: 0 1rem;
-      }
-      
-      .answer-42 {
-        bottom: 10px;
-        right: 10px;
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-      }
-      
-      .dolphin {
-        font-size: 1.5rem;
-      }
-      
-      footer {
-        margin-top: 2rem;
-        padding: 1.5rem 1rem;
-        font-size: 0.9rem;
-      }
-      
-      footer p {
-        margin: 0.5rem 0;
-      }
-    }
-
-    /* Mobile phones (480px and below) */
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2rem;
-        margin-top: 0.5rem;
-      }
-      
-      .dont-panic {
-        font-size: 1.5rem;
-        padding: 10px;
-        max-width: 95%;
-        margin: 0.8rem auto;
-      }
-      
-      .profile-container {
-        gap: 1rem;
-      }
-      
-      .profile-img {
-        width: 130px;
-      }
-      
-      .guide-frame {
-        width: 95%;
-        padding: 8px;
-        font-size: 9px;
-      }
-      
-      .guide-text {
-        font-size: 7px;
-      }
-      
-      .about {
-        padding: 1rem;
-        margin: 1rem 0.5rem;
-      }
-      
-      .about p {
-        font-size: 0.9rem;
-        line-height: 1.5;
-      }
-      
-      .quote {
-        font-size: 0.85rem;
-        padding: 6px;
-      }
-      
-      .button {
-        padding: 0.7rem 1rem;
-        font-size: 0.8rem;
-        margin: 0.3rem;
-        width: calc(100% - 2rem);
-        max-width: 300px;
-      }
-      
-      .contact {
-        margin: 1.5rem 0;
-      }
-      
-      .towel {
-        width: 40px;
-        height: 55px;
-        right: 5px;
-        bottom: 70px;
-      }
-      
-      .answer-42 {
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
-        bottom: 5px;
-        right: 5px;
-      }
-      
-      .dolphin {
-        font-size: 1.2rem;
-      }
-      
-      .improbability-drive {
-        width: 100px;
-        height: 40px;
-      }
-      
-      footer {
-        font-size: 0.8rem;
-        padding: 1rem 0.5rem;
-      }
-    }
-
-    /* Small mobile phones (360px and below) */
-    @media (max-width: 360px) {
-      h1 {
-        font-size: 1.7rem;
-      }
-      
-      .dont-panic {
-        font-size: 1.3rem;
-        padding: 8px;
-      }
-      
-      .profile-img {
-        width: 110px;
-      }
-      
-      .about p {
-        font-size: 0.85rem;
-      }
-      
-      .quote {
-        font-size: 0.8rem;
-      }
-      
-      .button {
-        font-size: 0.75rem;
-        padding: 0.6rem 0.8rem;
-      }
-    }
-
-    /* Large screens (1200px and above) */
-    @media (min-width: 1200px) {
-      .about {
-        max-width: 900px;
-      }
-      
-      h1 {
-        font-size: 4.5rem;
-      }
-      
-      .profile-img {
-        width: 200px;
-      }
-    }
-
-    /* Extra large screens (1600px and above) */
-    @media (min-width: 1600px) {
-      .about {
-        max-width: 1000px;
-        padding: 2.5rem;
-      }
-      
-      h1 {
-        font-size: 5rem;
-      }
-      
-      .dont-panic {
-        font-size: 3rem;
-        max-width: 500px;
-      }
-      
-      .about p {
-        font-size: 1.2rem;
-      }
-      
-      .quote {
-        font-size: 1.1rem;
-      }
-    }
-
-    .guide-title {
-      color: #00ff00;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    /* Featured Projects Section */
+    /* Projects Section */
     .projects-section {
       max-width: 1200px;
-      margin: 4rem auto 2rem;
-      padding: 3rem 1rem;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(102, 179, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(77, 166, 255, 0.1) 0%, transparent 50%),
-        linear-gradient(135deg, rgba(13, 25, 41, 0.95) 0%, rgba(10, 20, 35, 0.98) 100%);
-      border: 2px solid rgba(77, 166, 255, 0.4);
-      border-radius: 30px;
-      box-shadow: 
-        0 0 40px rgba(51, 153, 255, 0.2),
-        inset 0 0 60px rgba(77, 166, 255, 0.05);
+      margin: 0 auto 4rem;
+      padding: 3rem 2rem;
       position: relative;
-      overflow: hidden;
-    }
-
-    .projects-section::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, 
-        transparent 0%, 
-        rgba(77, 166, 255, 0.3) 25%, 
-        rgba(51, 153, 255, 0.2) 50%, 
-        rgba(77, 166, 255, 0.3) 75%, 
-        transparent 100%);
-      border-radius: 30px;
-      z-index: -1;
-      animation: borderGlow 4s ease-in-out infinite;
-    }
-
-    @keyframes borderGlow {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-
-    .projects-section::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(77, 166, 255, 0.03) 2px,
-          rgba(77, 166, 255, 0.03) 4px
-        );
-      pointer-events: none;
-      z-index: 0;
+      z-index: 10;
     }
 
     .projects-title {
       text-align: center;
-      font-size: 3rem;
-      font-weight: 900;
-      margin-bottom: 1rem;
-      color: #66b3ff;
-      text-shadow: 0 0 20px #3399ff;
-      position: relative;
-      z-index: 1;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #f1f5f9;
     }
 
     .projects-subtitle {
       text-align: center;
-      font-size: 1.2rem;
-      color: #ccc;
+      font-size: 1rem;
+      color: #94a3b8;
       margin-bottom: 3rem;
-      font-style: italic;
-      position: relative;
-      z-index: 1;
     }
 
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2rem;
-      margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
     }
 
     .project-card {
-      background: rgba(13, 25, 41, 0.9);
-      border: 2px solid rgba(77, 166, 255, 0.3);
-      border-radius: 15px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 12px;
       overflow: hidden;
       transition: all 0.3s ease;
-      position: relative;
-      cursor: pointer;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
     }
 
     .project-card:hover {
-      transform: translateY(-10px);
-      border-color: #66b3ff;
-      box-shadow: 0 10px 30px rgba(51, 153, 255, 0.4);
+      transform: translateY(-8px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
     }
 
     .project-image {
       width: 100%;
       height: 200px;
-      background: linear-gradient(135deg, #1a1a4a 0%, #0d1929 50%, #1a3a52 100%);
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 4rem;
-      border-bottom: 2px solid rgba(77, 166, 255, 0.3);
       position: relative;
       overflow: hidden;
     }
@@ -809,27 +227,7 @@
     }
 
     .project-image-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      width: 100%;
-      height: 100%;
-    }
-
-    .project-image::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(77, 166, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .project-card:hover .project-image::before {
-      left: 100%;
+      font-size: 3.5rem;
     }
 
     .project-content {
@@ -837,128 +235,291 @@
     }
 
     .project-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #66b3ff;
-      margin-bottom: 0.8rem;
-      text-shadow: 0 0 10px rgba(102, 179, 255, 0.3);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 0.75rem;
     }
 
     .project-description {
       font-size: 0.95rem;
       line-height: 1.6;
-      color: #ccc;
-      margin-bottom: 1.2rem;
+      color: #cbd5e1;
+      margin-bottom: 1.25rem;
     }
 
     .project-link {
-      display: inline-block;
-      background: linear-gradient(45deg, #004d99, #0066cc);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #3b82f6;
       color: white;
-      border: 2px solid #4da6ff;
-      padding: 0.7rem 1.2rem;
+      padding: 0.65rem 1.25rem;
       font-size: 0.9rem;
-      font-family: 'Orbitron', monospace;
-      font-weight: bold;
-      border-radius: 25px;
+      font-weight: 500;
+      border-radius: 8px;
       text-decoration: none;
       transition: all 0.3s ease;
-      text-transform: uppercase;
     }
 
     .project-link:hover {
-      background: linear-gradient(45deg, #3399ff, #66b3ff);
-      box-shadow: 0 0 15px #3399ff;
-      transform: translateX(5px);
+      background: #2563eb;
+      transform: translateX(4px);
     }
 
     .project-status {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(0, 255, 0, 0.2);
-      color: #00ff00;
-      padding: 5px 10px;
-      border-radius: 5px;
+      top: 12px;
+      right: 12px;
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
       font-size: 0.75rem;
-      border: 1px solid #00ff00;
-      font-weight: bold;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      font-weight: 500;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
     }
 
-    /* Projects Responsive Design */
+    .contact {
+      text-align: center;
+      margin: 3rem 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.875rem 1.75rem;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      margin: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .button:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Subtle towel easter egg - bottom right corner */
+    .towel {
+      position: fixed;
+      right: 20px;
+      bottom: 80px;
+      width: 40px;
+      height: 50px;
+      background: #ef4444;
+      border-radius: 4px;
+      opacity: 0.6;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .towel::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 3px;
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        #fca5a5 0px,
+        #fca5a5 2px,
+        #f87171 2px,
+        #f87171 4px
+      );
+      border-radius: 2px;
+    }
+
+    .towel:hover {
+      opacity: 1;
+      transform: scale(1.15);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+
+    /* The Answer - 42 badge */
+    .answer-42 {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: rgba(34, 197, 94, 0.25);
+      border: 2px solid rgba(34, 197, 94, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #22c55e;
+      cursor: help;
+      font-family: 'Space Mono', monospace;
+      z-index: 100;
+      transition: all 0.3s ease;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    .answer-42:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
+      background: rgba(34, 197, 94, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem;
+      color: #64748b;
+      background: rgba(15, 23, 42, 0.6);
+      border-top: 1px solid rgba(59, 130, 246, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    footer p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    footer .whale-note {
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    /* Tablet and mobile responsive */
     @media (max-width: 768px) {
-      .projects-section {
-        margin: 3rem 1rem 2rem;
-        padding: 2rem 1rem;
-        border-radius: 20px;
+      header {
+        padding: 3rem 1.5rem 1.5rem;
       }
 
-      .projects-section::before {
-        border-radius: 20px;
+      h1 { 
+        font-size: 2.5rem;
+      }
+      
+      .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .profile-container { 
+        gap: 1.5rem;
+      }
+      
+      .profile-img {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .about {
+        margin: 0 1rem 3rem;
+        padding: 2rem 1.5rem;
+      }
+      
+      .about p {
+        font-size: 1rem;
+      }
+      
+      .projects-section {
+        padding: 2rem 1rem;
       }
 
       .projects-title {
         font-size: 2rem;
       }
 
-      .projects-subtitle {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-      }
-
       .projects-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
       }
-
-      .project-image {
-        height: 180px;
-        font-size: 3rem;
+      
+      .button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+      }
+      
+      .towel {
+        right: 10px;
+        bottom: 70px;
+        width: 35px;
+        height: 45px;
       }
 
-      .project-content {
-        padding: 1.2rem;
-      }
-
-      .project-title {
-        font-size: 1.3rem;
-      }
-
-      .project-description {
-        font-size: 0.9rem;
+      .answer-42 {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+        right: 10px;
       }
     }
 
     @media (max-width: 480px) {
-      .projects-section {
-        margin: 2rem 0.5rem 1rem;
-        padding: 1.5rem 0.5rem;
-        border-radius: 15px;
+      h1 {
+        font-size: 2rem;
       }
 
-      .projects-section::before {
-        border-radius: 15px;
+      .subtitle {
+        font-size: 1rem;
+      }
+      
+      .profile-img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .about {
+        padding: 1.5rem 1rem;
+        margin: 0 0.5rem 3rem;
+      }
+      
+      .about p {
+        font-size: 0.95rem;
+      }
+
+      .quote {
+        font-size: 0.875rem;
+      }
+      
+      .button {
+        padding: 0.7rem 1.25rem;
+        font-size: 0.9rem;
+        width: calc(100% - 2rem);
+        max-width: 300px;
+        display: block;
+        margin: 0.5rem auto;
       }
 
       .projects-title {
-        font-size: 1.7rem;
+        font-size: 1.75rem;
       }
 
       .projects-subtitle {
         font-size: 0.9rem;
       }
-
-      .project-image {
-        height: 160px;
-        font-size: 2.5rem;
+      
+      .towel {
+        width: 30px;
+        height: 40px;
       }
 
-      .project-content {
-        padding: 1rem;
-      }
-
-      .project-title {
-        font-size: 1.2rem;
+      .answer-42 {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
       }
     }
 
@@ -971,49 +532,39 @@
 </head>
 <body>
 
-  <!-- Animated Stars Background -->
+  <!-- Subtle starfield background -->
   <div class="stars" id="stars"></div>
 
-  <!-- Hitchhiker's Guide Display -->
-  <div class="guide-frame" onclick="changeGuideText()">
-    <div class="guide-title">THE GUIDE</div>
-    <div class="guide-text" id="guideText">
-      TOWEL: A towel is about the most massively useful thing an interstellar hitchhiker can have...
-    </div>
-  </div>
+  <!-- Header Section -->
+  <header>
+    <h1>Lizzie Johnson</h1>
+    <p class="subtitle">Developer & Designer | Problem Solver | Runner</p>
+    <span class="easter-egg" title="A person who knows where their towel is">🎒 Hoopy Frood | Mostly Harmless</span>
+  </header>
 
-  <!-- Swimming Dolphins -->
-  <div class="dolphin">🐬</div>
-
-  <!-- The Answer -->
-  <div class="answer-42" onclick="showAnswer()" title="The Answer to Life, Universe and Everything">42</div>
-
-  <!-- Improbability Drive -->
-  <div class="improbability-drive"></div>
-
-  <h1>Lizzie Johnson</h1>
-  <div class="dont-panic">DON'T PANIC</div>
-
+  <!-- Profile Images -->
   <div class="profile-container">
-    <img src="lizzie.jpeg" alt="Lizzie Johnson - Galactic Hitchhiker" class="profile-img" />
-    <img src="weezer.jpeg" alt="Weezer - Co-pilot" class="profile-img" />
+    <img src="lizzie.jpeg" alt="Lizzie Johnson" class="profile-img" />
+    <img src="weezer.jpeg" alt="Weezer" class="profile-img" />
   </div>
 
+  <!-- About Section -->
   <div class="about">
-    <p>🌌 Intergalactic runner, coder, and mystery solver extraordinaire! 🌌</p>
-    <p>Creator of the <strong>Murder Mystery Replit App</strong> and adventurer across the cosmos. Armed with a towel, a Pan Galactic Gargle Blaster recipe, and an improbability drive. Currently searching for the question to 42.</p>
+    <p>Runner, coder, and problem solver with a passion for building meaningful digital experiences. I create interactive applications that merge creativity with functionality—always with my towel nearby.</p>
     
-    <div class="quote">"Time is an illusion. Lunchtime doubly so." – Douglas Adams</div>
-    <div class="quote">"Let's do the unthinkable. Let's pretend this can work." – Dirk Gently</div>
-    <div class="quote">"The ships hung in the sky in much the same way that bricks don't." – Douglas Adams</div>
+    <p>From building <strong>AI-powered beauty assistants</strong> to developing <strong>charity gaming experiences</strong>, I enjoy tackling challenges that make a difference. Currently exploring the intersection of design, development, and user experience while pondering the Ultimate Question.</p>
     
-    <p>⭐ Current Mission: Building digital mysteries while running through the galaxy ⭐</p>
+    <div class="quote">"I may not have gone where I intended to go, but I think I have ended up where I needed to be." – Douglas Adams</div>
+    
+    <p class="status-note">
+      Status: Not panicking. Probability of success: Infinite (thanks to the Improbability Drive of determination).
+    </p>
   </div>
 
   <!-- Featured Projects Section -->
   <section class="projects-section">
-    <h2 class="projects-title">⚡ Featured Projects ⚡</h2>
-    <p class="projects-subtitle">"I may not have gone where I intended to go, but I think I have ended up where I needed to be." – Douglas Adams</p>
+    <h2 class="projects-title">Featured Projects</h2>
+    <p class="projects-subtitle">Building experiences that matter—one improbability at a time</p>
     
     <div class="projects-grid">
       
@@ -1026,10 +577,10 @@
         <div class="project-content">
           <h3 class="project-title">Last Drop - Wasteland Runner</h3>
           <p class="project-description">
-            An endless runner game for charity: water. Navigate the wasteland, collect water drops, and deliver clean water to communities in need. Every mile = 1 drop delivered!
+            An endless runner game for charity: water. Navigate the wasteland, collect water drops, and deliver clean water to communities in need. Every mile counts.
           </p>
           <a href="https://lizzierunner.github.io/final-last-drop-runner/" target="_blank" rel="noopener" class="project-link">
-            Start Mission →
+            View Project →
           </a>
         </div>
       </div>
@@ -1046,7 +597,7 @@
             AI-powered beauty advisor that helps users build personalized skincare routines. Features product recommendations, skin quizzes, and expertly curated templates.
           </p>
           <a href="https://lizzierunner.github.io/final-routine-builder/" target="_blank" rel="noopener" class="project-link">
-            Build Routine →
+            View Project →
           </a>
         </div>
       </div>
@@ -1063,7 +614,7 @@
             AI-powered chatbot providing personalized beauty recommendations for makeup, skincare, haircare, and fragrances. Your personal beauty expert available 24/7.
           </p>
           <a href="https://lizzierunner.github.io/08-prj-loreal-chatbot/" target="_blank" rel="noopener" class="project-link">
-            Chat Now →
+            View Project →
           </a>
         </div>
       </div>
@@ -1077,10 +628,10 @@
         <div class="project-content">
           <h3 class="project-title">NASA Space Explorer</h3>
           <p class="project-description">
-            Explore the universe through NASA's Astronomy Picture of the Day. Browse cosmic imagery, filter by galaxies, nebulas, and planets, with space-themed music integration.
+            Explore the universe through NASA's Astronomy Picture of the Day. Browse cosmic imagery, filter by galaxies, nebulas, and planets with space-themed music integration.
           </p>
           <a href="https://lizzierunner.github.io/09-nasa-space-explorer-v2/" target="_blank" rel="noopener" class="project-link">
-            Explore Space →
+            View Project →
           </a>
         </div>
       </div>
@@ -1088,7 +639,7 @@
       <!-- Project 5: Intel Event Check-In -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/intel-event.png" alt="Intel Sustainability Summit" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>�</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/intel-event.png" alt="Intel Sustainability Summit" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>📊</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1097,7 +648,7 @@
             Event check-in system for Intel's Team Sustainability Summit. Features team leaderboards, real-time analytics, and attendee tracking with progress visualization.
           </p>
           <a href="https://lizzierunner.github.io/05-prj-intel-event-check-in/" target="_blank" rel="noopener" class="project-link">
-            View System →
+            View Project →
           </a>
         </div>
       </div>
@@ -1105,7 +656,7 @@
       <!-- Project 6: Intel Sustainability Timeline -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/last-drop.png" alt="Last Drop Runner Game" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>💧</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/intel-timeline.png" alt="Intel Sustainability Timeline" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>�</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1114,7 +665,7 @@
             Interactive timeline showcasing Intel's journey from founding in 1968 to 2020 sustainability milestones. Explores innovation, technology, and environmental commitment.
           </p>
           <a href="https://lizzierunner.github.io/02-prj-intel-sustainability/" target="_blank" rel="noopener" class="project-link">
-            Explore Timeline →
+            View Project →
           </a>
         </div>
       </div>
@@ -1122,86 +673,59 @@
     </div>
   </section>
 
+  <!-- Contact Section -->
   <div class="contact">
     <a href="https://github.com/lizzierunner" target="_blank" rel="noopener">
-      <button class="button">🚀 GitHub Spaceport</button>
+      <button class="button">GitHub</button>
     </a>
     <a href="https://linkedin.com/in/lizzie-johnson-160874381" target="_blank" rel="noopener">
-      <button class="button">🌐 LinkedIn Galaxy</button>
+      <button class="button">LinkedIn</button>
     </a>
     <a href="https://morning-mystery-lizziejohnson30.replit.app" target="_blank" rel="noopener">
-      <button class="button">🔍 Murder Mystery Engine</button>
+      <button class="button">Mystery App</button>
     </a>
   </div>
 
-  <!-- CSS Towel (replacing the image) -->
-  <div class="towel" onclick="towelClick()" title="Don't Panic! Always know where your towel is!">
-    <div class="towel-fringe"></div>
-  </div>
+  <!-- Subtle Easter Eggs -->
+  <div class="towel" onclick="towelClick()" title="Always know where your towel is"></div>
+  <div class="answer-42" onclick="showAnswer()" title="The Answer to Life, the Universe, and Everything">42</div>
 
   <footer>
-    <p>© 2025 Lizzie Johnson • The Answer is 42 • Powered by Infinite Improbability & Brownian Motion</p>
-    <p>🐋 "So long and thanks for all the fish!" 🐋</p>
+    <p>© 2025 Lizzie Johnson • The Answer is 42</p>
+    <p>Built with curiosity, code, and a towel nearby</p>
+    <p class="whale-note">🐋 So long, and thanks for visiting</p>
   </footer>
 
   <script>
-    // Create animated stars
+    // Create subtle starfield
     function createStars() {
       const starsContainer = document.getElementById('stars');
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 80; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
-        star.style.animationDelay = Math.random() * 3 + 's';
         starsContainer.appendChild(star);
       }
     }
 
-    // Guide text rotation
-    const guideTexts = [
-      "TOWEL: A towel is about the most massively useful thing an interstellar hitchhiker can have...",
-      "EARTH: Mostly harmless. Recently demolished for a hyperspace bypass.",
-      "BABEL FISH: Small, yellow, leech-like, and probably the oddest thing in the universe.",
-      "VOGON POETRY: The third worst in the universe. Avoid at all costs.",
-      "HEART OF GOLD: Powered by the Infinite Improbability Drive.",
-      "LIZZIE JOHNSON: A hoopy frood who really knows where her towel is!"
-    ];
-    
-    let currentGuideIndex = 0;
-    
-    function changeGuideText() {
-      currentGuideIndex = (currentGuideIndex + 1) % guideTexts.length;
-      document.getElementById('guideText').textContent = guideTexts[currentGuideIndex];
-    }
-
-    // Auto-rotate guide text
-    setInterval(changeGuideText, 5000);
-
-    // Towel interaction
+    // Towel easter egg interaction
     function towelClick() {
-      alert("🌟 You've clicked your towel! You're clearly a hoopy frood who knows where their towel is. Don't Panic! 🌟");
+      alert("Don't Panic! You've found your towel. �");
     }
 
-    // Answer 42 interaction
+    // The Answer - 42 easter egg
     function showAnswer() {
       const answers = [
         "42: The Answer to Life, the Universe, and Everything!",
         "But what is the Question?",
         "Deep Thought computed this for 7.5 million years!",
-        "Now we need to find the Ultimate Question...",
-        "Maybe the mice know the question?"
       ];
       alert(answers[Math.floor(Math.random() * answers.length)]);
     }
 
-    // Initialize everything
+    // Initialize
     createStars();
-
-    // Add some random space sounds (optional - commented out)
-    // You could add audio files here for full immersion
   </script>
-</body>
-</html>
 </body>
 </html>
