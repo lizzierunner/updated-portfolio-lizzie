@@ -272,13 +272,41 @@
       margin: 0 auto;
     }
 
+    /* Scroll progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6);
+      background-size: 200% auto;
+      z-index: 2000;
+      width: 0%;
+      transition: width 0.1s linear;
+      animation: progressShimmer 3s linear infinite;
+    }
+
+    @keyframes progressShimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
     h1 {
       font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      color: #f1f5f9;
       letter-spacing: -0.02em;
-      animation: fadeInUp 1s ease-out;
+      background: linear-gradient(135deg, #f1f5f9 0%, #93c5fd 30%, #a78bfa 60%, #34d399 80%, #f1f5f9 100%);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 1s ease-out, nameShimmer 6s linear infinite;
+    }
+
+    @keyframes nameShimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 300% center; }
     }
 
     @keyframes fadeInUp {
@@ -303,20 +331,20 @@
     /* Easter egg - subtle nod to H2G2 */
     .easter-egg {
       display: inline-block;
-      font-size: 0.875rem;
-      color: #64748b;
+      font-size: 0.8rem;
+      color: #475569;
       font-family: 'Space Mono', monospace;
       margin-top: 0.5rem;
-      opacity: 0.7;
-      cursor: help;
-      transition: all 0.3s ease;
+      opacity: 0.45;
+      cursor: default;
+      transition: all 0.4s ease;
       animation: fadeInUp 1s ease-out 0.4s backwards;
+      letter-spacing: 0.08em;
     }
 
     .easter-egg:hover {
-      opacity: 1;
-      color: #3b82f6;
-      transform: scale(1.05);
+      opacity: 0.75;
+      color: #64748b;
     }
 
     .profile-container {
@@ -349,26 +377,7 @@
       cursor: pointer;
     }
 
-    /* About Section */
-    .about {
-      max-width: 800px;
-      margin: 0 auto 4rem;
-      padding: 2.5rem;
-      background: rgba(30, 41, 59, 0.6);
-      border-radius: 16px;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      position: relative;
-      z-index: 10;
-      transition: all 0.3s ease;
-    }
-
-    .about:hover {
-      border-color: rgba(59, 130, 246, 0.4);
-      box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
-      transform: translateY(-2px);
-    }
+    /* About section styles moved to project-link section above */
 
     .about p {
       font-size: 1.1rem;
@@ -436,7 +445,7 @@
       text-align: center;
       font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
       color: #f1f5f9;
     }
 
@@ -461,6 +470,14 @@
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .skill-category.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .skill-category:hover {
@@ -469,12 +486,26 @@
       box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
     }
 
+    .skill-category:nth-child(1) { border-top: 3px solid #3b82f6; }
+    .skill-category:nth-child(2) { border-top: 3px solid #a78bfa; }
+    .skill-category:nth-child(3) { border-top: 3px solid #34d399; }
+    .skill-category:nth-child(4) { border-top: 3px solid #fb923c; }
+
+    .skill-category:nth-child(1) h3 { color: #60a5fa; }
+    .skill-category:nth-child(2) h3 { color: #c4b5fd; }
+    .skill-category:nth-child(3) h3 { color: #6ee7b7; }
+    .skill-category:nth-child(4) h3 { color: #fdba74; }
+
     .skill-category h3 {
       font-size: 1.25rem;
-      color: #3b82f6;
       margin-bottom: 1rem;
       font-weight: 600;
     }
+
+    .skill-category:nth-child(1):hover { box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25); }
+    .skill-category:nth-child(2):hover { box-shadow: 0 8px 30px rgba(167, 139, 250, 0.25); }
+    .skill-category:nth-child(3):hover { box-shadow: 0 8px 30px rgba(52, 211, 153, 0.25); }
+    .skill-category:nth-child(4):hover { box-shadow: 0 8px 30px rgba(251, 146, 60, 0.25); }
 
     .skill-tags {
       display: flex;
@@ -513,7 +544,7 @@
       text-align: center;
       font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
       color: #f1f5f9;
     }
 
@@ -535,15 +566,25 @@
       border: 1px solid rgba(59, 130, 246, 0.2);
       border-radius: 12px;
       overflow: hidden;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
     .project-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(59, 130, 246, 0.5);
-      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
+      transform: translateY(-10px) scale(1.01);
+      border-color: rgba(99, 179, 255, 0.6);
+      box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3),
+                  0 0 0 1px rgba(99, 179, 255, 0.2),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.07);
     }
 
     .project-image {
@@ -594,7 +635,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: #3b82f6;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
       color: white;
       padding: 0.65rem 1.25rem;
       font-size: 0.9rem;
@@ -605,8 +646,82 @@
     }
 
     .project-link:hover {
-      background: #2563eb;
-      transform: translateX(4px);
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      transform: translateX(5px);
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Section title underline animation */
+    .skills-title, .projects-title {
+      position: relative;
+      display: inline-block;
+    }
+
+    .skills-title::after, .projects-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+      border-radius: 2px;
+    }
+
+    /* Available badge */
+    .available-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      color: #86efac;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease-out 0.6s backwards;
+    }
+
+    .available-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+      animation: ping 2s ease-in-out infinite;
+    }
+
+    @keyframes ping {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); }
+      50% { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+    }
+
+    /* About section animation */
+    .about {
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      padding: 2.5rem;
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 16px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 10;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .about.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .project-status {
@@ -853,40 +968,6 @@
       border-color: #60a5fa;
     }
 
-    /* Don't Panic Badge */
-    .dont-panic {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 0.5rem 1rem;
-      background: rgba(239, 68, 68, 0.1);
-      border: 2px solid rgba(239, 68, 68, 0.4);
-      border-radius: 8px;
-      color: #fca5a5;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.875rem;
-      font-weight: 700;
-      z-index: 100;
-      opacity: 0.6;
-      transition: all 0.3s ease;
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      cursor: pointer;
-      /* Better touch target */
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      touch-action: manipulation;
-    }
-
-    .dont-panic:hover, .dont-panic:active {
-      opacity: 1;
-      transform: scale(1.05);
-      border-color: #ef4444;
-      color: #ef4444;
-      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
-    }
-
     footer {
       text-align: center;
       margin-top: 4rem;
@@ -1007,13 +1088,6 @@
         font-size: 1.1rem;
         right: 10px;
       }
-
-      .dont-panic {
-        top: 10px;
-        right: 10px;
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
-      }
     }
 
     @media (max-width: 480px) {
@@ -1087,11 +1161,6 @@
         height: 40px;
         font-size: 1rem;
       }
-
-      .dont-panic {
-        font-size: 0.7rem;
-        padding: 0.35rem 0.7rem;
-      }
     }
 
     @media (min-width: 1200px) {
@@ -1106,11 +1175,8 @@
   <!-- Skip to main content for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Skip to main content for accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <!-- DON'T PANIC Badge -->
-  <div class="dont-panic" onclick="dontPanicClick()" title="The Hitchhiker's Guide to the Galaxy">DON'T PANIC</div>
+  <!-- Scroll progress bar -->
+  <div id="progress-bar"></div>
 
   <!-- Subtle starfield background -->
   <div class="stars" id="stars"></div>
@@ -1121,19 +1187,12 @@
   <!-- Constellation lines -->
   <svg class="constellation" id="constellation">
     <!-- Lines will be added by JavaScript -->
-  </svg>  <!-- Subtle starfield background -->
-  <div class="stars" id="stars"></div>
-
-  <!-- Constellation lines -->
-  <svg class="constellation" id="constellation">
-    <!-- Lines will be added by JavaScript -->
-  </svg>
-
-  <!-- Header Section -->
+  </svg>  <!-- Header Section -->
   <header>
+    <div class="available-badge">✦ Open to Web Dev Internships</div>
     <h1>Lizzie Johnson</h1>
     <p class="subtitle">Developer & Designer | Problem Solver | Runner</p>
-    <span class="easter-egg" title="A person who knows where their towel is">🎒 Hoopy Frood | Mostly Harmless</span>
+    <span class="easter-egg">// mostly harmless</span>
   </header>
 
   <!-- Profile Images -->
@@ -1152,7 +1211,7 @@
     <div class="quote">"I may not have gone where I intended to go, but I think I have ended up where I needed to be." – Douglas Adams</div>
     
     <p class="status-note">
-      Status: Not panicking. Probability of success: Infinite (thanks to the Improbability Drive of determination).
+      Currently seeking a web development internship where I can bring creativity, technical curiosity, and a genuine love of building things.
     </p>
   </div>
 
@@ -1211,7 +1270,7 @@
   <!-- Featured Projects Section -->
   <section class="projects-section">
     <h2 class="projects-title">Featured Projects</h2>
-    <p class="projects-subtitle">Building experiences that matter—one improbability at a time</p>
+    <p class="projects-subtitle">A collection of projects built with curiosity and care</p>
     
     <div class="projects-grid">
       
@@ -1516,18 +1575,6 @@
       }, 500);
     }
 
-    // Don't Panic interaction
-    function dontPanicClick() {
-      const messages = [
-        "DON'T PANIC! Everything is under control... mostly.",
-        "Remember: Always know where your towel is!",
-        "Panic is just enthusiasm without the rhythm.",
-        "The Guide says: Keep calm and code on.",
-        "In case of emergency, consult the Guide (or Google).",
-      ];
-      alert(messages[Math.floor(Math.random() * messages.length)]);
-    }
-
     // Towel easter egg interaction
     function towelClick() {
       alert("Don't Panic! You've found your towel. �");
@@ -1599,6 +1646,45 @@
     // Initialize
     createStars();
     createStardust();
+
+    // Scroll progress bar
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = progress + '%';
+    });
+
+    // Intersection Observer for scroll-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger children if it's a grid
+          const delay = entry.target.dataset.delay || 0;
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observe skill categories with stagger
+    document.querySelectorAll('.skill-category').forEach((el, i) => {
+      el.dataset.delay = i * 120;
+      observer.observe(el);
+    });
+
+    // Observe project cards with stagger
+    document.querySelectorAll('.project-card').forEach((el, i) => {
+      el.dataset.delay = i * 100;
+      observer.observe(el);
+    });
+
+    // Observe about section
+    const aboutEl = document.querySelector('.about');
+    if (aboutEl) observer.observe(aboutEl);
 
     // Detect if device supports touch (mobile/tablet)
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
