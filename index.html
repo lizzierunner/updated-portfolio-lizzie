@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -365,6 +364,11 @@
       box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
       transition: all 0.3s ease;
       object-fit: cover;
+      opacity: 0;
+    }
+
+    .profile-img.loaded {
+      opacity: 1;
     }
 
     .profile-img:hover {
@@ -602,11 +606,32 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      object-position: top;
+      transition: transform 0.3s ease, opacity 0.6s ease;
+      opacity: 0;
+    }
+
+    .project-image img.loaded {
+      opacity: 1;
     }
 
     .project-card:hover .project-image img {
       transform: scale(1.05);
+    }
+
+    .project-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.18) 0%, rgba(139, 92, 246, 0.18) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .project-card:hover .project-image::after {
+      opacity: 1;
     }
 
     .project-image-placeholder {
@@ -654,7 +679,6 @@
     /* Section title underline animation */
     .skills-title, .projects-title {
       position: relative;
-      display: inline-block;
     }
 
     .skills-title::after, .projects-title::after {
@@ -705,6 +729,7 @@
       font-weight: 500;
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
+      z-index: 2;
     }
 
     .contact {
@@ -1136,6 +1161,259 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+
+    /* ================= Motion Graphics: The Case Files ================= */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .case-video {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .case-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .case-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 0.6rem;
+    }
+
+    .case-logline {
+      font-style: italic;
+      color: #fbbf24;
+      font-size: 0.98rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .case-card:nth-of-type(1) { border-top: 3px solid #3b82f6; }
+    .case-card:nth-of-type(2) { border-top: 3px solid #a78bfa; }
+    .case-card:nth-of-type(3) { border-top: 3px solid #34d399; }
+    .case-card:nth-of-type(4) { border-top: 3px solid #fb923c; }
+
+    .case-card:nth-of-type(1) .case-label { color: #60a5fa; }
+    .case-card:nth-of-type(2) .case-label { color: #c4b5fd; }
+    .case-card:nth-of-type(3) .case-label { color: #6ee7b7; }
+    .case-card:nth-of-type(4) .case-label { color: #fdba74; }
+
+    .case-fill { color: #64748b; }
+
+    /* ===== Custom Scrollbar ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.9); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #60a5fa, #a78bfa);
+    }
+
+    /* ===== Typewriter Cursor ===== */
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: #60a5fa;
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.75s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ===== Status Badge ===== */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      color: #4ade80;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+      animation: fadeInUp 0.8s ease-out 0.05s backwards;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+    @keyframes statusPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+      50%       { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    }
+
+    /* ===== Aurora Hero Orbs ===== */
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(72px);
+      pointer-events: none;
+      animation: auroraDrift 16s ease-in-out infinite;
+    }
+    .aurora-orb:nth-child(1) {
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(59,130,246,0.18), transparent 70%);
+      top: -40px; left: 3%;
+      animation-duration: 18s;
+    }
+    .aurora-orb:nth-child(2) {
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(167,139,250,0.18), transparent 70%);
+      top: -30px; right: 3%;
+      animation-duration: 13s;
+      animation-delay: -5s;
+    }
+    .aurora-orb:nth-child(3) {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(6,182,212,0.14), transparent 70%);
+      top: 40%; left: 38%;
+      animation-duration: 21s;
+      animation-delay: -10s;
+    }
+    @keyframes auroraDrift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(35px, -22px) scale(1.07); }
+      66%       { transform: translate(-22px, 32px) scale(0.95); }
+    }
+
+    /* ===== Floating Side Nav Dots ===== */
+    .nav-dots {
+      position: fixed;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      z-index: 500;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.3);
+      border: 1.5px solid rgba(148, 163, 184, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: block;
+      text-decoration: none;
+    }
+    .nav-dot::before {
+      content: attr(data-label);
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(15, 23, 42, 0.92);
+      color: #94a3b8;
+      font-size: 0.68rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    .nav-dot:hover::before { opacity: 1; }
+    .nav-dot:hover {
+      background: rgba(99, 179, 255, 0.55);
+      border-color: rgba(99, 179, 255, 0.55);
+      transform: scale(1.55);
+    }
+    .nav-dot.active {
+      background: #3b82f6;
+      border-color: #3b82f6;
+      transform: scale(1.55);
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+    }
+
+    /* ===== Back-to-Top Rocket Button ===== */
+    #back-to-top {
+      position: fixed;
+      bottom: 140px;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid rgba(59, 130, 246, 0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 500;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      font-size: 0.85rem;
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      pointer-events: none;
+      line-height: 1;
+      color: inherit;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    #back-to-top:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 0 18px rgba(59, 130, 246, 0.5);
+      transform: translateY(-3px);
+      background: rgba(30, 41, 59, 0.9);
+    }
+
+    /* ===== 3D Card Glare Overlay ===== */
+    .project-card { position: relative; }
+    .card-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 3;
+      mix-blend-mode: overlay;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .nav-dots { display: none; }
+      #back-to-top { right: 0.6rem; bottom: 128px; width: 32px; height: 32px; font-size: 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -1145,6 +1423,18 @@
 
   <!-- Scroll progress bar -->
   <div id="progress-bar"></div>
+
+  <!-- Floating section navigation dots -->
+  <nav class="nav-dots" aria-label="Jump to section">
+    <a class="nav-dot" data-section="main-content" data-label="About" href="#main-content" aria-label="About"></a>
+    <a class="nav-dot" data-section="skills" data-label="Skills" href="#skills" aria-label="Skills"></a>
+    <a class="nav-dot" data-section="projects" data-label="Projects" href="#projects" aria-label="Projects"></a>
+    <a class="nav-dot" data-section="motion" data-label="Motion" href="#motion" aria-label="Motion"></a>
+    <a class="nav-dot" data-section="contact" data-label="Contact" href="#contact" aria-label="Contact"></a>
+  </nav>
+
+  <!-- Back to top button -->
+  <button id="back-to-top" aria-label="Scroll back to top">🚀</button>
 
   <!-- Subtle starfield background -->
   <div class="stars" id="stars"></div>
@@ -1157,9 +1447,13 @@
     <!-- Lines will be added by JavaScript -->
   </svg>  <!-- Header Section -->
   <header>
+    <div class="aurora-orb" aria-hidden="true"></div>
+    <div class="aurora-orb" aria-hidden="true"></div>
+    <div class="aurora-orb" aria-hidden="true"></div>
 
+    <div class="status-badge"><span class="status-dot"></span>Open to opportunities</div>
     <h1>Lizzie Johnson</h1>
-    <p class="subtitle">Developer & Designer | Problem Solver | Runner</p>
+    <p class="subtitle"><span id="typewriter-text">Developer &amp; Designer</span><span class="typewriter-cursor" aria-hidden="true"></span></p>
     <span class="easter-egg">// mostly harmless</span>
   </header>
 
@@ -1174,7 +1468,7 @@
   <div class="about">
     <p>Runner, coder, and problem solver with a passion for building meaningful digital experiences. I create interactive applications that merge creativity with functionality—always with my towel nearby.</p>
     
-    <p>From building <strong>AI-powered beauty assistants</strong> to developing <strong>charity gaming experiences</strong>, I enjoy tackling challenges that make a difference. Currently exploring the intersection of design, development, and user experience while pondering the Ultimate Question.</p>
+    <p>From building <strong>AI-powered beauty assistants</strong> to developing <strong>charity gaming experiences</strong> to animating <strong>motion graphics</strong> starring my dachshund, I enjoy tackling challenges that make a difference. Currently exploring the intersection of design, development, and user experience while pondering the Ultimate Question.</p>
     
     <div class="quote">"I may not have gone where I intended to go, but I think I have ended up where I needed to be." – Douglas Adams</div>
   </div>
@@ -1232,7 +1526,7 @@
   </section>
 
   <!-- Featured Projects Section -->
-  <section class="projects-section">
+  <section class="projects-section" id="projects">
     <h2 class="projects-title">Featured Projects</h2>
     <p class="projects-subtitle">A collection of projects built with curiosity and care</p>
     
@@ -1241,7 +1535,7 @@
       <!-- Project 1: Last Drop Runner -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/last-drop.png" alt="Last Drop Runner Game" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>💧</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/last-drop.png" alt="Last Drop Runner Game" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>💧</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1258,7 +1552,7 @@
       <!-- Project 2: L'Oréal Routine Builder -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/routine-builder.png" alt="L'Oréal Routine Builder" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>💄</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/routine-builder.png" alt="L'Oréal Routine Builder" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>💄</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1275,7 +1569,7 @@
       <!-- Project 3: L'Oréal Beauty Chatbot -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/beauty-chatbot.png" alt="L'Oréal Beauty Assistant" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>💬</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/beauty-chatbot.png" alt="L'Oréal Beauty Assistant" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>💬</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1292,7 +1586,7 @@
       <!-- Project 4: NASA Space Explorer -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/nasa-explorer.png" alt="NASA Space Explorer" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>🚀</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/nasa-explorer.png" alt="NASA Space Explorer" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>🚀</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1309,7 +1603,7 @@
       <!-- Project 5: Intel Event Check-In -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/intel-event.png" alt="Intel Sustainability Summit" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>📊</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/intel-event.png" alt="Intel Sustainability Summit" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>📊</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1326,7 +1620,7 @@
       <!-- Project 6: Intel Sustainability Timeline -->
       <div class="project-card">
         <div class="project-image">
-          <img src="project-images/intel-timeline.png" alt="Intel Sustainability Timeline" onerror="this.parentElement.innerHTML='<div class=\'project-image-placeholder\'>�</div><span class=\'project-status\'>LIVE</span>'">
+          <img src="project-images/intel-timeline.png" alt="Intel Sustainability Timeline" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='<div class='project-image-placeholder'>🌱</div><span class='project-status'>LIVE</span>'">�</div><span class=\'project-status\'>LIVE</span>'">
           <span class="project-status">LIVE</span>
         </div>
         <div class="project-content">
@@ -1337,6 +1631,92 @@
           <a href="https://lizzierunner.github.io/02-prj-intel-sustainability/" target="_blank" rel="noopener" class="project-link">
             View Project →
           </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Motion Graphics Section -->
+  <section class="projects-section" id="motion">
+    <h2 class="projects-title">Motion Graphics</h2>
+    <p class="projects-subtitle">The Case Files — four stories built frame by frame in After Effects, from creative brief to final cut</p>
+
+    <div class="cases-grid">
+
+      <!-- Case 01: Weezer and the Red Planet -->
+      <div class="project-card case-card">
+        <div class="case-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/vDW89A2EL44" title="Weezer and the Red Planet" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="project-content">
+          <p class="case-label">Case 01 · Workshops 03–05 · After Effects</p>
+          <h3 class="project-title">Weezer and the Red Planet</h3>
+          <p class="case-logline">A vintage sci-fi trailer for a giant alien dachshund who only wants his ball.</p>
+          <p class="project-description"><strong>The Brief —</strong> A funny vintage sci-fi movie poster starring my dachshund, Weezer, as a giant alien life form on a distant red planet. Humanity spends centuries searching the galaxy for intelligent life — only to discover the mysterious creature just wants a ball. Inspired by over-the-top 1950s–60s sci-fi posters: giant monsters, dramatic type, bright colors, mixed with Weezer's personality. The composite was built in Photoshop (Weezer cut out and dropped into an AI-generated cosmic scene); the red planet, rocket, UFO, and title type are vector art from Illustrator.</p>
+          <p class="project-description"><strong>Process —</strong> WS03 animated the poster into a cinematic trailer title card: title slam entrance, tagline fade-in, moving rocket and UFO, drifting planet, slow zoom on Weezer. WS04 added a 360° rocket rotation, planet rotation, UFO scale wobble, a subtle Weezer rotation for weightlessness, title bounce on entry, easy ease on every keyframe, and motion blur across all layers. WS05 added post polish: drop shadow on the title, a glow on the planet, and the planet layer set to Screen blend mode.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Social video ad</span>
+            <span class="skill-tag">YouTube intro</span>
+            <span class="skill-tag">Film-festival bumper</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 02: A Grand Dog Out -->
+      <div class="project-card case-card">
+        <div class="case-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/LZVmkO81EEA" title="A Grand Dog Out" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="project-content">
+          <p class="case-label">Case 02 · Project 02 · After Effects</p>
+          <h3 class="project-title">A Grand Dog Out</h3>
+          <p class="case-logline">To the moon… for cheese. A Wallace &amp; Gromit homage built from real desert photographs.</p>
+          <p class="project-description"><strong>The Brief —</strong> A Wallace &amp; Gromit homage where Weezer builds a rocket and heads moonward for cheese — told entirely with real photos I took at White Sands National Park. The goal: turn still photography into a narrative animation with a handmade, stop-motion-ish charm.</p>
+          <p class="project-description"><strong>Process —</strong> Ken Burns pushes on the White Sands stills fake the camera movement, caption text pops in with a scale bounce for that storybook beat, and a grain overlay on Screen blend mode ties the real photos and the animation together. The rocket sequence was the ambitious bit — <span class="case-fill">[one line on how you built it]</span>. When my iMac's drive filled mid-project, I moved the .aep to a local Downloads folder so iCloud would stop fighting me.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Narrative animation</span>
+            <span class="skill-tag">Storytelling reel</span>
+            <span class="skill-tag">Photo-driven motion</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 03: The Weezer Files -->
+      <div class="project-card case-card">
+        <div class="case-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/v_r3jhLqxm4" title="The Weezer Files" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="project-content">
+          <p class="case-label">Case 03 · Workshop 06 · After Effects</p>
+          <h3 class="project-title">The Weezer Files</h3>
+          <p class="case-logline">A hard-boiled dachshund gumshoe takes the case in a city full of shadows.</p>
+          <p class="project-description"><strong>The Brief —</strong> A film-noir detective short starring Weezer as a very small, very determined gumshoe. A mood-first piece — high-contrast lighting, venetian-blind shadows, hard-boiled title cards — built to push tone and pacing in After Effects. <span class="case-fill">[One line on the actual case — what's Weezer investigating?]</span></p>
+          <p class="project-description"><strong>Process —</strong> Classic noir contrast: deep blacks, a single hard key light, and slatted shadow overlays for that "someone's watching" feel. <span class="case-fill">[Title/type treatment — e.g. a typewriter reveal.]</span> Timing stays slow and deliberate so each beat lands. <span class="case-fill">[The trickiest part, and how you solved it.]</span></p>
+          <div class="skill-tags">
+            <span class="skill-tag">Title sequence</span>
+            <span class="skill-tag">Social teaser</span>
+            <span class="skill-tag">Character-driven brand piece</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 04: Run For Your Life -->
+      <div class="project-card case-card">
+        <div class="case-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/HSwlHtnuvjM" title="Run For Your Life" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="project-content">
+          <p class="case-label">Case 04 · Workshop 07 · After Effects</p>
+          <h3 class="project-title">Run For Your Life</h3>
+          <p class="case-logline">Zombies behind you, one mile to go — a kinetic-typography sprint through the Zombies, Run! world.</p>
+          <p class="project-description"><strong>The Brief —</strong> A kinetic-typography motion graphic inspired by Zombies, Run! — the app that's gotten me through more miles than I'll admit. The brief: build urgency and momentum through type, pace, and visual rhythm alone. <span class="case-fill">[One line on concept/inspiration in your words.]</span></p>
+          <p class="project-description"><strong>Process —</strong> Everything serves the chase — text accelerates, cuts tighten, and the composition never quite lets you rest. Exported as an H.264 .mp4. <span class="case-fill">[The pacing call you made, and any color/grade choices.]</span></p>
+          <div class="skill-tags">
+            <span class="skill-tag">Fan/promo piece</span>
+            <span class="skill-tag">Motion-typography sample</span>
+            <span class="skill-tag">Running-video bumper</span>
+          </div>
         </div>
       </div>
 
@@ -1647,6 +2027,16 @@
     const aboutEl = document.querySelector('.about');
     if (aboutEl) observer.observe(aboutEl);
 
+    // Fade in all images when loaded (handles cached images correctly)
+    document.querySelectorAll('.project-image img, .profile-img').forEach(img => {
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => img.classList.add('loaded'));
+        img.addEventListener('error', () => img.classList.add('loaded'));
+      }
+    });
+
     // Detect if device supports touch (mobile/tablet)
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
@@ -1676,6 +2066,97 @@
         stars.style.transform = `translateY(${scrolled * parallaxAmount}px)`;
       }
     });
+
+    // ============================================================
+    // ✨  SPECTACULAR ADDITIONS
+    // ============================================================
+
+    // --- Typewriter Effect ---
+    (function initTypewriter() {
+      const el = document.getElementById('typewriter-text');
+      if (!el) return;
+      const roles = ['Developer & Designer', 'Problem Solver', 'Trail Runner', 'Maker of Things', 'Storyteller'];
+      let ri = 0, ci = 0, deleting = false;
+      function tick() {
+        const word = roles[ri];
+        el.textContent = deleting ? word.slice(0, ci - 1) : word.slice(0, ci + 1);
+        deleting ? ci-- : ci++;
+        let delay = deleting ? 45 : 95;
+        if (!deleting && ci === word.length)  { delay = 2200; deleting = true; }
+        else if (deleting && ci === 0)        { deleting = false; ri = (ri + 1) % roles.length; delay = 400; }
+        setTimeout(tick, delay);
+      }
+      setTimeout(tick, 1800); // start after hero animations settle
+    })();
+
+    // --- 3D Card Tilt + Cursor-tracked glare (desktop only) ---
+    if (!isTouchDevice) {
+      document.querySelectorAll('.project-card').forEach(card => {
+        const glare = document.createElement('div');
+        glare.className = 'card-glare';
+        card.appendChild(glare);
+
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = e.clientX - r.left, y = e.clientY - r.top;
+          const rx = ((y - r.height / 2) / (r.height / 2)) * -7;
+          const ry = ((x - r.width  / 2) / (r.width  / 2)) *  7;
+          card.style.transition = 'transform 0.08s ease';
+          card.style.transform = `perspective(1100px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02) translateY(-6px)`;
+          glare.style.background = `radial-gradient(circle at ${(x / r.width) * 100}% ${(y / r.height) * 100}%, rgba(255,255,255,0.11) 0%, transparent 65%)`;
+          glare.style.opacity = '1';
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transition = 'transform 0.55s ease';
+          card.style.transform = '';
+          glare.style.opacity = '0';
+        });
+      });
+    }
+
+    // --- Magnetic Contact Buttons (desktop only) ---
+    if (!isTouchDevice) {
+      document.querySelectorAll('.button').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const r = btn.getBoundingClientRect();
+          const x = (e.clientX - r.left - r.width  / 2) * 0.22;
+          const y = (e.clientY - r.top  - r.height / 2) * 0.22;
+          btn.style.transition = 'transform 0.1s ease';
+          btn.style.transform  = `translate(${x}px, ${y}px) translateY(-2px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transition = 'transform 0.4s ease';
+          btn.style.transform  = '';
+        });
+      });
+    }
+
+    // --- Floating Nav Dots: active section tracking ---
+    const navDotEls = document.querySelectorAll('.nav-dot');
+    const sectionObserver2 = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navDotEls.forEach(d => d.classList.remove('active'));
+          const dot = document.querySelector(`.nav-dot[data-section="${entry.target.id}"]`);
+          if (dot) dot.classList.add('active');
+        }
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -50% 0px' });
+
+    ['main-content', 'skills', 'projects', 'motion', 'contact'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver2.observe(el);
+    });
+
+    // --- Back-to-Top Rocket Button ---
+    const bttBtn = document.getElementById('back-to-top');
+    if (bttBtn) {
+      bttBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      window.addEventListener('scroll', () => {
+        bttBtn.classList.toggle('visible', window.pageYOffset > 400);
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>
